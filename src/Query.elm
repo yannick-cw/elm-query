@@ -1,7 +1,7 @@
 module Query exposing (get, parse)
 
-import Http
 import Dict exposing (Dict)
+import Http
 
 
 type Query
@@ -22,8 +22,7 @@ paramToKeyValue : String -> Maybe ( String, String )
 paramToKeyValue params =
     case String.split "=" params of
         [ key, value ] ->
-            Http.decodeUri value
-                |> Maybe.map (\value -> ( key, value ))
+            Maybe.map2 (,) (Http.decodeUri key) (Http.decodeUri value)
 
         _ ->
             Nothing
