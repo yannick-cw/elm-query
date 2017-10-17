@@ -27,5 +27,10 @@ all =
             \_ ->
                 Query.parse "?key=a%20value"
                     |> Query.get "key"
-                    |> Expect.equal (Just "avalue")
+                    |> Expect.equal (Just "a value")
+        , test "decode the key" <|
+            \_ ->
+                Query.parse "?ke%20y=value"
+                    |> Query.get "ke y"
+                    |> Expect.equal (Just "value")
         ]
