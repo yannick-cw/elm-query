@@ -1,7 +1,7 @@
 module QuerySpec exposing (..)
 
-import Query
 import Expect
+import Query
 import Test exposing (Test, describe, test)
 
 
@@ -18,4 +18,14 @@ all =
                 Query.parse "?key=value"
                     |> Query.get "foo"
                     |> Expect.equal Nothing
+        , test "return Nothing when given query is empty" <|
+            \_ ->
+                Query.parse ""
+                    |> Query.get "foo"
+                    |> Expect.equal Nothing
+        , test "decode the value" <|
+            \_ ->
+                Query.parse "?key=a%20value"
+                    |> Query.get "key"
+                    |> Expect.equal (Just "avalue")
         ]
