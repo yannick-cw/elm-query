@@ -33,4 +33,9 @@ all =
                 Query.parse "?ke%20y=value"
                     |> Query.get "ke y"
                     |> Expect.equal (Just "value")
+        , test "get a default, if the key could not be found" <|
+            \_ ->
+                Query.parse ""
+                    |> Query.getOrElse "key" "default"
+                    |> Expect.equal "default"
         ]
