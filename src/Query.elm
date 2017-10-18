@@ -1,4 +1,4 @@
-module Query exposing (get, parse)
+module Query exposing (get, getOrElse, parse)
 
 import Dict exposing (Dict)
 import Http
@@ -31,3 +31,8 @@ paramToKeyValue params =
 get : String -> Query -> Maybe String
 get key (Query queryDict) =
     Dict.get key queryDict
+
+
+getOrElse : String -> String -> Query -> String
+getOrElse key defaultValue query =
+    Maybe.withDefault defaultValue (get key query)
